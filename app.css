@@ -5,6 +5,10 @@ body {
   background-color: lightgoldenrodyellow;
 }
 
+.js-hidden {
+  /*display: none;*/
+}
+
 .phone-images {
   background-color: white;
   width: 450px;
