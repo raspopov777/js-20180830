@@ -4,13 +4,13 @@ export default class ShoppingCart extends Component {
     constructor ({element}) {
         super({element});
 
-        this._items = {
-            test: 2,
-            foo: 1,
-            bar: 3
-        };
+        this._items = {};
 
         this._render();
+
+        this._on('click', 'button-remove', (event) => {
+            this.removeItem(event.target.dataset.item);
+        })
     }
 
     addItem(item) {
@@ -20,6 +20,7 @@ export default class ShoppingCart extends Component {
         this._items[item]++;
         this._render();
     }
+
     removeItem(item) {
         if (this._items[item]) {
             this._items[item]--;

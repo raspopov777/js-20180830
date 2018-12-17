@@ -3,10 +3,18 @@ import Component from '../component.js';
 export default class PhoneViewer extends Component {
     constructor ({element}) {
         super({element});
+
+        this._on('click', 'back-button', () => {
+            this.emit('back');
+        });
+
+        this._on('click', 'add-button', () => {
+            this.emit('add', this._phone.id);
+        })
     }
 
-    show(phonedetails) {
-        this._phone = phonedetails;
+    show(phoneDetails) {
+        this._phone = phoneDetails;
         this._render();
         super.show();
     }

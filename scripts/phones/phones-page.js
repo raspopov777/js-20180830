@@ -10,6 +10,7 @@ export default class PhonesPage {
         this._element = element;
 
         this._render();
+
         this._initCatalog();
         this._initViewer();
         this._initShoppingCart();
@@ -46,12 +47,31 @@ export default class PhonesPage {
         this._catalog = new PhoneCatalog({
             element: document.querySelector('[data-component="phone-catalog"]'),
             phones: PhoneService.getPhones()
-        })
+        });
+
+        this._catalog.subscribe('phoneSelected', (phoneId) => {
+            let phoneDetails = PhoneService.getPhone(phoneId);
+            this._catalog.hide();
+            this._viewer.show(phoneDetails);
+        });
+
+        this._catalog.subscribe('add', (phoneId) => {
+            this._shoppingCart.addItem(phoneId);
+        });
     }
 
     _initViewer() {
         this._viewer = new PhoneViewer({
             element: document.querySelector('[data-component="phone-viewer"]')
+        });
+
+        this._viewer.subscribe('back', () => {
+            this._viewer.hide();
+            this._catalog.show();
+        });
+
+        this._viewer.subscribe('add', (phoneId) => {
+            this._shoppingCart.addItem(phoneId);
         })
     }
 
