@@ -35,7 +35,7 @@ export default class PhonesPage {
           
               <!--Main content-->
               <div class="col-md-10">
-                <div data-component="phone-catalog"></div>
+                <div data-component="phone-catalog" class="js-hidden"></div>
                 <div data-component="phone-viewer" class="js-hidden"></div>
               </div>
             </div>
@@ -43,16 +43,24 @@ export default class PhonesPage {
         `;
     }
 
+    _loadPhonesFromServer() {
+        PhoneService.getPhones((phones) => {
+            this._catalog.show(phones)
+        })
+    }
+
     _initCatalog() {
         this._catalog = new PhoneCatalog({
-            element: document.querySelector('[data-component="phone-catalog"]'),
-            phones: PhoneService.getPhones()
+            element: document.querySelector('[data-component="phone-catalog"]')
         });
 
+        this._loadPhonesFromServer();
+
         this._catalog.subscribe('phoneSelected', (phoneId) => {
-            let phoneDetails = PhoneService.getPhone(phoneId);
-            this._catalog.hide();
-            this._viewer.show(phoneDetails);
+            PhoneService.getPhone(phoneId, (phoneDetails) => {
+                this._catalog.hide();
+                this._viewer.show(phoneDetails);
+            });
         });
 
         this._catalog.subscribe('add', (phoneId) => {
@@ -67,7 +75,7 @@ export default class PhonesPage {
 
         this._viewer.subscribe('back', () => {
             this._viewer.hide();
-            this._catalog.show();
+            this._loadPhonesFromServer();
         });
 
         this._viewer.subscribe('add', (phoneId) => {

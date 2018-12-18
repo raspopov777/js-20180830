@@ -1,12 +1,8 @@
 import Component from '../component.js';
 
 export default class PhoneCatalog extends Component {
-    constructor ({element, phones}) {
+    constructor ({element}) {
         super({element});
-
-        this._phones = phones;
-
-        this._render();
 
         this._on('click', 'phone-details-link', (event) => {
             this.emit('phoneSelected', event.target.closest('[data-element="phone"]').dataset.phoneId);
@@ -15,6 +11,12 @@ export default class PhoneCatalog extends Component {
         this._on('click', 'add-button', (event) => {
             this.emit('add', event.target.closest('[data-element="phone"]').dataset.phoneId);
         })
+    }
+
+    show(phones) {
+        this._phones = phones;
+        this._render();
+        super.show();
     }
 
     _render() {
@@ -33,20 +35,20 @@ export default class PhoneCatalog extends Component {
             >
               <img alt="${ phone.name }" src="${ phone.imageUrl }">
             </a>
-  
+
             <div class="phones__btn-buy-wrapper">
               <a class="btn btn-success" data-element="add-button">
                 Add
               </a>
             </div>
-  
+
             <a
               href="#!/phones/${ phone.id }"
               data-element="phone-details-link"
             >
               ${ phone.name }
             </a>
-            
+
             <p>${ phone.snippet }</p>
           </li>
         `).join('') }

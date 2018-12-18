@@ -1,0 +1,23 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raspopov777/js-20180830.git"
+  },
+  "author": "Sergey Raspopov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raspopov777/js-20180830/issues"
+  },
+  "homepage": "https://github.com/raspopov777/js-20180830#readme",
+  "devDependencies": {
+    "node-static": "^0.7.11"
+  }
+}
