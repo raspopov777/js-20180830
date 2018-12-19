@@ -38,4 +38,32 @@ export default class Component {
             callback(event);
         })
     }
+
+    throttle(f, delay) {
+        let timer = null;
+        let chachedArgs = null;
+        let chachedContext = null;
+
+        return function wrapper(...args) {
+
+            if (timer) {
+                chachedArgs = args;
+                chachedContext = self;
+
+                return;
+            }
+
+            timer = setTimeout(function () {
+                timer = null;
+
+                if(chachedArgs && chachedContext) {
+                    wrapper.apply(chachedContext, chachedArgs);
+                    chachedArgs = null;
+                    chachedContext = null;
+                }
+            }, delay);
+
+            return f.apply(this, args);
+        }
+    }
 }
