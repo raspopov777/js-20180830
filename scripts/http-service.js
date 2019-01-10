@@ -1,5 +1,5 @@
-// const API_URL = 'https://raspopov777.github.io/js-20180830';
-const API_URL = 'http://localhost:3000';
+const API_URL = 'https://raspopov777.github.io/js-20180830';
+// const API_URL = 'http://localhost:3000';
 
 
 const HttpService = {
